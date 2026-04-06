@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return;
   <nav className="navbar">
-    <div classname="navbar-brand"></div>
-    <link to="/">Movie App</link>
+    <div classname="navbar-brand">
+      <link to="/">Movie App</link>
+    </div>
     <div className="navbar-links">
       <Link to="/" className="nav-link">
         Home

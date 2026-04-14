@@ -16,21 +16,32 @@ function Home() {
         setMovies(popularMovies);
       } catch (err) {
         console.log(err);
-        setError("Failed'  to load movies...");
+        setError("Failed to load movies...");
       } finally {
         setLoading(false);
       }
     };
+
     loadPopularMovies();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    alert(searchQuery);
-  };
+    if (!searchQuery.trim()) return;
+    if (loading) return;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+    setLoading(true);
+    try {
+      const searchResults = await searchMovies(searchQuery);
+      setMovies(searchResults);
+      setError(null);
+    } catch (err) {
+      console.log(err);
+      setError("Failed to search movies...");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="home">
